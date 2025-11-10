@@ -1,0 +1,177 @@
+1. Customer
+
+Association/Relation:
+
+Composition with Wallet (Customer ◆ Wallet)
+
+Association with Order (Customer → Order)
+
+*Attributes:
+
+customerId: int
+
+name: String
+
+email: String
+
+phoneNumber: String
+
+#Methods:
+
+login()
+
+logout()
+
+placeOrder(order: Order)
+
+viewOrders()
+
+updateProfile()
+
+
+
+2. Wallet
+
+Association/Relation:
+
+Composition (Wallet is part of Customer)
+
+Dependency on Payment (Wallet ..> Payment)
+
+Strong association from Account (Account → Wallet)
+
+Attributes:
+
+walletId: int
+
+balance: float
+
+currency: String
+
+Methods:
+
+addMoney(amount: float)
+
+deductMoney(amount: float)
+
+makePayment(payment: Payment)
+
+viewBalance()
+
+3. Payment
+
+Association/Relation:
+
+Used by Wallet (dependency)
+
+Attributes:
+
+paymentId: int
+
+amount: float
+
+paymentDate: Date
+
+paymentType: String (e.g., Credit Card, UPI, Net Banking)
+
+status: String (Success/Failed/Pending)
+
+Methods:
+
+processPayment()
+
+refundPayment()
+
+verifyPayment()
+
+4. Account
+
+Association/Relation:
+
+Strong association with Wallet (Account → Wallet)
+
+Attributes:
+
+accountId: int
+
+bankName: String
+
+accountNumber: String
+
+ifscCode: String
+
+accountHolderName: String
+
+Methods:
+
+linkWallet(wallet: Wallet)
+
+unlinkWallet(wallet: Wallet)
+
+updateBalance()
+
+viewAccountDetails()
+
+5. Order
+
+Association/Relation:
+
+Association with Customer (Customer → Order)
+
+Aggregation with Product (Order <> Product)
+
+Attributes:
+
+orderId: int
+
+orderDate: Date
+
+totalAmount: float
+
+status: String (Pending, Completed, Cancelled)
+
+Methods:
+
+addProduct(product: Product)
+
+removeProduct(product: Product)
+
+calculateTotal()
+
+updateStatus(status: String)
+
+6. Product
+
+Association/Relation:
+
+Aggregation with Order (Order <> Product)
+
+Attributes:
+
+productId: int
+
+name: String
+
+description: String
+
+price: float
+
+stockQuantity: int
+
+Methods:
+
+updateStock(quantity: int)
+
+getPrice(): float
+
+updateDetails(name: String, description: String, price: float)	
+
+
+
+
+
+Customer 1 --------- 0..* Order
+Order 1 --------- 1..* Product
+Customer 1 ◆ Wallet 1
+Account 1 --------> Wallet 1
+Wallet 1 ..> 0..* Payment
